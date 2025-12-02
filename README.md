@@ -1,4 +1,4 @@
-# Forecastify
+# Teams Forecastify
 
 A simple script to pull the latest National Weather Service forecast for a specified location and send it to Microsoft Teams. You can create a Windows Task Scheduler job to run this script at regular intervals.
 
@@ -17,7 +17,7 @@ A simple script to pull the latest National Weather Service forecast for a speci
 
 2. Navigate to the project directory:
    ```bash
-   cd Forecastify
+   cd TeamsForecastify
    ```
 
 3. Install the required Python libraries:
