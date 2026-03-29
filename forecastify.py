@@ -73,8 +73,8 @@ def get_forecast(latitude, longitude, source_city, source_state, city):
             name = current_day
         elif name.lower() == "tonight":
             name = f"{current_day} night"
-	elif name.lower() == "This Afternoon":
-	    name = f"{current_day} afternoon"
+        elif name.lower() == "This Afternoon":
+            name = f"{current_day} afternoon"
 
         # Ensure all "Night" in day names is lowercase
         name = format_day_name(name)
