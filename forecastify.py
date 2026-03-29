@@ -68,11 +68,13 @@ def get_forecast(latitude, longitude, source_city, source_state, city):
         name = period["name"]
         detailed_forecast = period["detailedForecast"]
 
-        # Replace "Today" and "Tonight" with the current day of the week
+        # Replace "Today," "Tonight," etc. with the current day of the week
         if name.lower() == "today":
             name = current_day
         elif name.lower() == "tonight":
             name = f"{current_day} night"
+	elif name.lower() == "This Afternoon":
+	    name = f"{current_day} afternoon"
 
         # Ensure all "Night" in day names is lowercase
         name = format_day_name(name)
@@ -85,7 +87,12 @@ def get_forecast(latitude, longitude, source_city, source_state, city):
 
     # Step 4: Add the source line with the dynamically constructed forecast URL
     forecast_page_url = f"https://forecast.weather.gov/MapClick.php?lon={longitude}&lat={latitude}"
-    formatted_forecast += f"*Source: [National Weather Service in {source_city}, {source_state}]({forecast_page_url})*"
+    formatted_forecast += f"*Source: [National Weather Service in {source_city}"
+
+    if source_state:
+       formatted_forecast += f", {source_state}"
+
+    formatted_forecast += f"]({forecast_page_url})*"
 
     return formatted_forecast.strip()
 
