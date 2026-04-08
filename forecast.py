@@ -14,7 +14,14 @@ longitude = float(os.getenv("longitude"))
 city = os.getenv("city")
 nws_office_city = os.getenv("nws_office_city")
 nws_office_state = os.getenv("nws_office_state")
-teams_webhook_url = os.getenv("teams_webhook_url")
+
+# Support both forecast-specific and fallback webhooks
+forecast_teams_webhook = os.getenv("forecast_teams_webhook")
+alerts_teams_webhook = os.getenv("alerts_teams_webhook")
+teams_webhook_url = forecast_teams_webhook or alerts_teams_webhook
+
+if not teams_webhook_url:
+    raise ValueError("No Teams webhook URL configured. Set either 'forecast_teams_webhook' or 'alerts_teams_webhook' in .env")
 
 def format_time(text):
     """
@@ -85,7 +92,7 @@ def get_forecast(latitude, longitude, source_city, source_state, city):
 
     # Step 4: Add the source line with the dynamically constructed forecast URL
     forecast_page_url = f"https://forecast.weather.gov/MapClick.php?lon={longitude}&lat={latitude}"
-    formatted_forecast += f"*Source: [National Weather Service in {source_city}, {source_state}]({forecast_page_url})*"
+    formatted_forecast += f"*Source: [National Weather Service in {source_city}]({forecast_page_url})*"
 
     return formatted_forecast.strip()
 
